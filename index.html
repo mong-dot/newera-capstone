@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TCI — Trend Character Index</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Pretendard:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -15,13 +18,13 @@
   --accent:#A8E6CF;--good:#52C8A0;--warn:#F4C842;--bad:#E8715A;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
+body{background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR','-apple-system','BlinkMacSystemFont','Malgun Gothic',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
 body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 20% 20%,rgba(168,230,207,0.04) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(133,193,233,0.04) 0%,transparent 50%);pointer-events:none;z-index:0}
 .page{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 24px 80px}
 
 /* 홈 */
 #home{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 0}
-.home-greeting{font-family:'Instrument Serif',serif;font-size:clamp(32px,5vw,52px);line-height:1.15;margin-bottom:10px}
+.home-greeting{font-family:'Instrument Serif',Georgia,'Times New Roman',serif;font-size:clamp(32px,5vw,52px);line-height:1.15;margin-bottom:10px}
 .home-greeting em{font-style:italic;color:var(--accent)}
 .home-sub{font-size:15px;color:var(--muted);margin-bottom:32px;font-weight:300}
 .search-wrap{position:relative;margin-bottom:12px}
@@ -52,14 +55,14 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 
 /* not found */
 #notfound{display:none;padding:60px 0;text-align:center}
-.nf-title{font-family:'Instrument Serif',serif;font-size:28px;margin-bottom:10px;color:var(--muted)}
+.nf-title{font-family:'Instrument Serif',Georgia,'Times New Roman',serif;font-size:28px;margin-bottom:10px;color:var(--muted)}
 .nf-sub{font-size:14px;color:var(--muted);margin-bottom:20px}
 
 /* 결과 */
 #result{display:none;padding-top:40px}
 .back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:inherit;margin-bottom:32px;transition:color 0.15s}
 .back-btn:hover{color:var(--text)}
-.result-kw{font-family:'Instrument Serif',serif;font-size:clamp(28px,4vw,44px);line-height:1.1;margin-bottom:8px}
+.result-kw{font-family:'Instrument Serif',Georgia,'Times New Roman',serif;font-size:clamp(28px,4vw,44px);line-height:1.1;margin-bottom:8px}
 .result-kw em{font-style:italic;color:var(--accent)}
 .result-meta{font-size:12px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px}
 .meta-tag{background:var(--bg3);padding:3px 8px;border-radius:6px;border:1px solid var(--border)}
@@ -140,6 +143,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .type-desc{flex:1;font-size:11px;color:var(--muted)}
 .type-ex{font-size:11px;color:var(--muted);text-align:right;min-width:100px}
 
+@media(max-width:580px){
+  .type-row{flex-direction:column;align-items:flex-start;gap:4px;padding:12px 0}
+  .type-name{min-width:unset;display:flex;align-items:center;gap:6px}
+  .type-desc{min-width:unset;white-space:normal}
+  .type-ex{text-align:left;min-width:unset}
+}
+
 /* 점수 계산 */
 .calc-grid{display:grid;gap:12px}
 .calc-item{display:flex;gap:10px;align-items:flex-start}
@@ -202,31 +212,31 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 <div class="page">
 
 <!-- 팝업 모달 -->
-<div class="modal-overlay" id="guide-modal">
-  <div class="modal">
-    <div class="modal-title">📊 TCI 분석 기간 안내</div>
-    <div class="modal-sub">TCI는 콘텐츠 장르에 따라 최적의 분석 기간을 자동으로 적용합니다.<br>필요하면 결과 화면에서 기간을 직접 변경할 수 있어요.</div>
-    <div class="modal-rows">
-      <div class="modal-row">
-        <div class="modal-icon">🎵</div>
+<div id="guide-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px)">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#1A1A1E;border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:28px;max-width:420px;width:calc(100% - 40px);box-sizing:border-box">
+    <div style="font-size:16px;font-weight:600;margin-bottom:6px;color:var(--text)">TCI 분석 기간 안내</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.6">TCI는 콘텐츠 장르에 따라 최적의 분석 기간을 자동으로 적용합니다.<br>필요하면 결과 화면에서 기간을 직접 변경할 수 있어요.</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+      <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px">
+        <div style="font-size:18px;flex-shrink:0">🎵</div>
         <div>
-          <div class="modal-row-title">음악</div>
-          <div class="modal-row-desc">발화 이벤트 기준 <strong style="color:var(--text)">전 6주 / 후 24주</strong><br>역주행·이벤트형은 해당 이벤트 날짜 기준으로 설정하세요</div>
+          <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px">음악</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5">발화 이벤트 기준 <strong style="color:var(--text)">전 6주 / 후 24주</strong><br>역주행·이벤트형은 해당 이벤트 날짜 기준으로 설정하세요</div>
         </div>
       </div>
-      <div class="modal-row">
-        <div class="modal-icon">🎬</div>
+      <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px">
+        <div style="font-size:18px;flex-shrink:0">🎬</div>
         <div>
-          <div class="modal-row-title">드라마 · 영화</div>
-          <div class="modal-row-desc">첫 공개일 기준 <strong style="color:var(--text)">전 6주 / 후 12주</strong><br>OTT 역주행의 경우 OTT 공개일 기준으로 설정하세요</div>
+          <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px">드라마 · 영화</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5">첫 공개일 기준 <strong style="color:var(--text)">전 6주 / 후 12주</strong><br>OTT 역주행의 경우 OTT 공개일 기준으로 설정하세요</div>
         </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <label class="modal-check">
-        <input type="checkbox" id="modal-no-show"> 다시 보지 않기
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+      <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);cursor:pointer">
+        <input type="checkbox" id="modal-no-show" style="accent-color:#52C8A0"> 다시 보지 않기
       </label>
-      <button class="modal-confirm" id="modal-confirm-btn">확인</button>
+      <button id="modal-confirm-btn" style="background:#52C8A0;color:#0A0A0C;font-size:13px;font-weight:600;padding:12px 28px;border-radius:10px;border:none;cursor:pointer;min-height:44px;min-width:80px;-webkit-appearance:none">확인</button>
     </div>
   </div>
 </div>
@@ -362,10 +372,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 <script>
 // ── 팝업 모달
 function closeModal(){
-  const modal = document.getElementById('guide-modal');
-  if(modal) modal.style.display='none';
-  const chk = document.getElementById('modal-no-show');
-  if(chk && chk.checked) localStorage.setItem('tci-guide-seen','1');
+  document.getElementById('guide-modal').style.display='none';
+  if(document.getElementById('modal-no-show').checked){
+    localStorage.setItem('tci-guide-seen','1');
+  }
 }
 
 const DB = {
@@ -817,8 +827,7 @@ function showResult(d){
       <div class="chart-title" style="margin-bottom:14px">TCI 유형 분류표</div>
       ${TYPE_MAP.map(t=>`
         <div class="type-row">
-          <div class="type-dot" style="background:${t.color}"></div>
-          <div class="type-name" style="color:${t.color}">${t.type}</div>
+          <div class="type-name" style="color:${t.color}"><span class="type-dot" style="background:${t.color}"></span>${t.type}</div>
           <div class="type-desc">${t.desc}</div>
           <div class="type-ex">${t.ex}</div>
         </div>`).join('')}
@@ -972,28 +981,19 @@ function resetDateAdjust(){
 document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('homeInput').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch(e.target.value);});
 
-  // 팝업: 처음 방문 시만 표시
-  const modal = document.getElementById('guide-modal');
-  if(localStorage.getItem('tci-guide-seen')==='1'){
-    modal.style.display='none';
+  // 팝업
+  if(localStorage.getItem('tci-guide-seen')!=='1'){
+    document.getElementById('guide-modal').style.display='block';
   }
-  // 오버레이 클릭 시 닫기 (버튼 클릭은 버블링 차단)
-  modal.addEventListener('click', e=>{
-    if(e.target===modal) closeModal();
-  });
-  // 확인 버튼: 클릭 이벤트만 (모바일/데스크탑 공통)
-  const confirmBtn = document.getElementById('modal-confirm-btn');
-  if(confirmBtn){
-    confirmBtn.addEventListener('click', e=>{
-      e.stopPropagation();
-      closeModal();
-    });
-  }
-  // 모달 내부 클릭이 오버레이로 전파되지 않도록 차단
-  const modalBox = document.querySelector('.modal');
-  if(modalBox){
-    modalBox.addEventListener('click', e=>{ e.stopPropagation(); });
-  }
+  document.getElementById('modal-confirm-btn').addEventListener('click', closeModal);
+  document.getElementById('modal-confirm-btn').addEventListener('touchstart', function(e){
+    e.stopPropagation();
+  }, {passive:true});
+  document.getElementById('modal-confirm-btn').addEventListener('touchend', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    closeModal();
+  }, {passive:false});
 
   // 디버그 토글: 결과 화면 제목 더블클릭
   document.getElementById('result').addEventListener('dblclick', e=>{
