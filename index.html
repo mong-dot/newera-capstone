@@ -258,7 +258,6 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 
   <div class="chips fu d3">
     <div class="chip" onclick="doSearch('WOODZ')">WOODZ — Drowning</div>
-    <div class="chip" onclick="doSearch('리센느')">리센느</div>
     <div class="chip" onclick="doSearch('러브어택')">리센느 — LOVE ATTACK</div>
     <div class="chip" onclick="doSearch('에스파')">에스파 — Black Mamba</div>
     <div class="chip" onclick="doSearch('엔하이픈')">엔하이픈 — Polaroid Love</div>
@@ -293,7 +292,6 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   <div class="nf-sub">현재 지원하는 사례</div>
   <div class="chips" style="justify-content:center">
     <div class="chip" onclick="doSearch('WOODZ')">WOODZ</div>
-    <div class="chip" onclick="doSearch('리센느')">리센느</div>
     <div class="chip" onclick="doSearch('러브어택')">LOVE ATTACK</div>
     <div class="chip" onclick="doSearch('에스파')">에스파</div>
     <div class="chip" onclick="doSearch('엔하이픈')">엔하이픈</div>
@@ -329,7 +327,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="date-adjust-label">📅 분석 기간</div>
     <input type="date" id="adj-start"/>
     <span style="font-size:11px;color:var(--muted)">~</span>
-    <input type="date" id="adj-end"/>
+    <input type="date" id="adj-end" placeholder="자동"/>
     <button class="date-adjust-btn" onclick="applyDateAdjust()">적용</button>
     <button class="date-adjust-reset" onclick="resetDateAdjust()">기본값</button>
     <div class="date-adjust-info" id="adj-info"></div>
@@ -381,10 +379,10 @@ function closeModal(){
 
 const DB = {
   'woodz':{
-    title:'WOODZ',subtitle:'Drowning · 역주행',category:'음악',period:'2023.03 ~ 2023.10',
+    title:'WOODZ — Drowning',subtitle:'역주행',category:'음악',period:'2023.03 ~ 2023.10',
     tci:null,init:null,sust:null,corr:null,corr_r:null,partial:false,algo:false,forceType:'데이터 기사량 부족',
     verdict:'기사 데이터가 부족하여 유형 분류가 어렵습니다',
-    desc:'발매일(2023-04-26) 기준으로 기사 최대 5건으로 분류에 필요한 기사 데이터가 부족합니다. 날짜를 멜론 1위 시점(2025-03 ~ 2025-10)으로 변경하면 참여자 주도형으로 분류됩니다.',
+    desc:'검색어 \'드라우닝\' 기준으로 구글 웹은 발매 후 5월부터, 네이버는 발매 전부터 검색량이 관찰됩니다. 기사 최대 5건으로 분류 기준치 미달입니다. 날짜를 멜론 1위 시점(2025-03 ~ 2025-10)으로 변경하면 참여자 주도형으로 분류됩니다.',
     vTitle:'데이터 기사량 부족',
     vBody:'주간 최대 기사수가 <strong>5건</strong>으로 유형 분류 기준치(20건)에 미달합니다. <strong>날짜를 멜론 1위 시점(2025-03-23 ~ 2025-10-26)으로 변경</strong>하면 참여자 주도형으로 분류됩니다.',
     timeline:[
@@ -394,9 +392,10 @@ const DB = {
       {date:'2023.10',text:'데이터 수집 종료'},
     ],
     labels:["2023-03-12","2023-03-19","2023-03-26","2023-04-02","2023-04-09","2023-04-16","2023-04-23","2023-04-30","2023-05-07","2023-05-14","2023-05-21","2023-05-28","2023-06-04","2023-06-11","2023-06-18","2023-06-25","2023-07-02","2023-07-09","2023-07-16","2023-07-23","2023-07-30","2023-08-06","2023-08-13","2023-08-20","2023-08-27","2023-09-03","2023-09-10","2023-09-17","2023-09-24","2023-10-01","2023-10-08","2023-10-15"],
-    combined:[14.0,27.3,35.3,31.6,32.7,35.2,48.6,62.1,64.2,64.4,67.0,57.1,55.9,49.8,64.3,76.7,89.1,69.9,54.7,43.5,53.2,46.7,52.5,42.1,37.8,51.0,47.4,44.9,51.6,36.2,34.3,4.8],
+    combined:[7.0,7.6,18.9,12.2,9.6,9.0,10.4,31.0,33.7,37.7,54.7,45.0,37.8,35.2,45.4,78.6,94.0,73.1,58.2,40.4,40.4,43.2,48.2,34.6,42.0,41.8,45.0,37.8,51.2,33.8,32.8,28.1],
     media:[0,0,2,0,5,0,3,2,1,0,5,1,0,1,3,0,0,0,0,0,0,2,0,0,0,0,0,4,1,0,0,0],
     pivotIdx:7,
+    altLabel:'멜론 1위 기준',
     'alt':{
       period:'2025.03 ~ 2025.10',
       verdict:'멜론 1위 전부터 검색이 압도적으로 선행한 참여자 주도형 역주행입니다',
@@ -419,21 +418,41 @@ const DB = {
     }
   },
   '리센느':{
-    title:'리센느',subtitle:'거제야호 밈 확산',category:'음악',period:'2026.02 ~ 2026.05',
-    tci:null,init:1,sust:null,corr:6,corr_r:0.270,partial:true,
-    verdict:'현재 진행 중인 트렌드 — 데이터 축적 후 재분류 예정입니다',
-    desc:'분석 기간이 3개월 미만으로 유형 확정이 어렵습니다. 거제야호 밈이 기사로 먼저 확산된 후 검색량이 따라온 패턴이 관찰됩니다.',
-    vTitle:'데이터 수집 기간 부족',
-    vBody:'리센느는 <strong>거제야호 밈</strong>을 통해 인지도를 얻은 케이스입니다. 기사가 검색량보다 먼저 올라간 패턴이 관찰되지만, 지속성 측정을 위해 <strong>데이터 축적이 필요</strong>합니다.',
+    title:'리센느 — LOVE ATTACK',subtitle:'음원 발매 기준',category:'음악',period:'2024.07 ~ 2024.11',
+    tci:null,init:null,sust:null,corr:null,corr_r:null,partial:false,algo:false,
+    verdict:'발매 전 기사가 검색을 앞선 미디어 주도형 트렌드입니다',
+    desc:'발화 이전 구간에서 기사량이 검색량보다 크게 높게 나타났습니다. 발매 전 언론 보도가 먼저 나오고 이후 검색이 따라온 미디어 주도형 패턴입니다.',
+    vTitle:'미디어 주도형 — 발매 전 기사 선행',
+    vBody:'발매 이전 구간에서 기사가 먼저 나오고 검색량은 거의 0에 가까웠습니다. 발매 후 유튜브 중심으로 검색량이 올라온 미디어 주도형 패턴입니다.',
     timeline:[
-      {date:'2026.02',text:'리센느 활동 시작'},
-      {date:'2026.03',text:'거제야호 밈 확산 → 미디어 기사 증가'},
-      {date:'2026.05',text:'검색량 급등 — 현재 진행 중'},
+      {date:'2024.07.14',text:'데이터 수집 시작 (발매일 6주 전)'},
+      {date:'2024.08.11',text:'발매 전 언론 보도 11건 집중'},
+      {date:'2024.08.27',text:'LOVE ATTACK 발매 — 피벗'},
+      {date:'2024.09.22~29',text:'검색량 최고점'},
+      {date:'2024.11',text:'검색량 하락'},
     ],
-    labels:["2026-02-27","2026-03-01","2026-03-03","2026-03-05","2026-03-07","2026-03-09","2026-03-11","2026-03-13","2026-03-15","2026-03-17","2026-03-19","2026-03-21","2026-03-23","2026-03-25","2026-03-27","2026-03-29","2026-03-31","2026-04-02","2026-04-04","2026-04-06","2026-04-08","2026-04-10","2026-04-12","2026-04-14","2026-04-16","2026-04-18","2026-04-20","2026-04-22","2026-04-24","2026-04-26","2026-04-28","2026-04-30","2026-05-02","2026-05-04","2026-05-06","2026-05-08","2026-05-10","2026-05-12","2026-05-14","2026-05-16","2026-05-18","2026-05-20","2026-05-22","2026-05-24","2026-05-26"],
-    combined:[1.0,2.0,0.7,0.7,1.3,1.0,1.0,2.0,1.9,0.7,0.7,0.7,1.7,2.0,0.7,4.2,2.0,1.7,1.7,1.3,1.7,3.7,5.3,2.3,2.7,2.3,1.3,2.0,1.3,3.2,1.7,1.0,4.7,7.7,5.7,11.0,21.7,10.7,11.3,14.7,12.7,12.7,20.7,59.4,43.3],
-    media:[0,1,0,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0],
-    pivotIdx:35
+    labels:["2024-07-14","2024-07-21","2024-07-28","2024-08-04","2024-08-11","2024-08-18","2024-08-25","2024-09-01","2024-09-08","2024-09-15","2024-09-22","2024-09-29","2024-10-06","2024-10-13","2024-10-20","2024-10-27","2024-11-03","2024-11-10","2024-11-17","2024-11-24"],
+    combined:[0.0,0.0,0.1,0.0,0.1,0.0,0.0,8.9,20.9,33.2,54.6,63.8,55.6,51.0,23.9,17.0,11.1,11.7,8.3,1.0],
+    media:[0,0,0,1,11,5,4,2,3,22,2,23,0,5,3,0,3,0,0,2],
+    pivotIdx:7,
+    altLabel:'거제야호 밈 기준',
+    alt:{
+      period:'2026.02 ~ 2026.05',
+      verdict:'현재 진행 중인 트렌드 — 데이터 축적 후 재분류 예정입니다',
+      desc:'분석 기간이 3개월 미만으로 유형 확정이 어렵습니다. 거제야호 밈이 기사로 먼저 확산된 후 검색량이 따라온 패턴이 관찰됩니다.',
+      vTitle:'데이터 수집 기간 부족',
+      vBody:'리센느는 <strong>거제야호 밈</strong>을 통해 인지도를 얻은 케이스입니다. 기사가 검색량보다 먼저 올라간 패턴이 관찰되지만, 지속성 측정을 위해 <strong>데이터 축적이 필요</strong>합니다.',
+      timeline:[
+        {date:'2026.02',text:'리센느 활동 시작'},
+        {date:'2026.03',text:'거제야호 밈 확산 → 미디어 기사 증가'},
+        {date:'2026.05',text:'검색량 급등 — 현재 진행 중'},
+      ],
+      labels:["2026-02-08","2026-02-15","2026-02-22","2026-03-01","2026-03-08","2026-03-15","2026-03-22","2026-03-29","2026-04-05","2026-04-12","2026-04-19","2026-04-26","2026-05-03","2026-05-10","2026-05-17","2026-05-24","2026-05-31"],
+      combined:[2.6,2.3,2.5,2.5,2.4,2.0,2.5,4.3,5.1,4.7,3.5,4.3,13.8,22.7,35.5,74.5,92.7],
+      media:[0,0,2,1,0,3,0,3,7,6,1,0,1,0,3,7,6],
+      pivotIdx:12,
+      forceType:'데이터 수집 기간 부족',
+    }
   },
   '선업튀':{
     title:'선재 업고 튀어',subtitle:'넷플릭스 드라마',category:'드라마',period:'2024.02 ~ 2024.07',
@@ -527,22 +546,22 @@ const DB = {
     pivotIdx:6
   },
   '지올팍':{
-    title:'지올팍',subtitle:'CHRISTIAN · 역주행',category:'음악',period:'2023.01 ~ 2023.05',
+    title:'지올팍',subtitle:'CHRISTIAN · 역주행',category:'음악',period:'2023.01 ~ 2023.07',
     tci:null,init:null,sust:null,corr:null,corr_r:null,partial:false,algo:true,
     verdict:'기사 데이터가 부족하여 유형 분류가 어렵습니다',
-    desc:'빅카인즈 기준 주간 최대 기사수가 12건으로 분류 기준치(20건)에 미달합니다. 기사 없이 유튜브 쇼츠 알고리즘만으로 트렌드가 형성된 것으로 추정되는 사례입니다.',
+    desc:'빅카인즈 기준 주간 최대 기사수가 3건으로 분류 기준치(20건)에 미달합니다. 기사 없이 유튜브 쇼츠 알고리즘만으로 트렌드가 형성된 것으로 추정되는 사례입니다.',
     vTitle:'데이터 기사량 부족',
-    vBody:'주간 최대 기사수가 <strong>12건</strong>으로 유형 분류 기준치(20건)에 미달합니다. 기사 없이 알고리즘만으로 트렌드가 형성될 수 있음을 보여주는 사례입니다.',
+    vBody:'주간 최대 기사수가 <strong>3건</strong>으로 유형 분류 기준치(20건)에 미달합니다. 기사 없이 알고리즘만으로 트렌드가 형성될 수 있음을 보여주는 사례입니다.',
     timeline:[
-      {date:'2023.01.15',text:'데이터 수집 시작 (발화 이벤트 6주 전)'},
-      {date:'2023.02',text:'CHRISTIAN 발매 — 초기 소폭 반응'},
+      {date:'2023.01.08',text:'데이터 수집 시작 (발화 이벤트 6주 전)'},
+      {date:'2023.02.16',text:'CHRISTIAN 발매 — 초기 소폭 반응'},
       {date:'2023.03.01',text:'역주행 시작 — 유튜브 쇼츠 알고리즘 자생 확산'},
-      {date:'2023.04.15',text:'네이버 데이터랩 기준 최고점'},
-      {date:'2023.05',text:'차트 유지 후 자연 소멸'},
+      {date:'2023.04.16',text:'네이버 데이터랩·유튜브 기준 최고점'},
+      {date:'2023.07',text:'검색량 자연 소멸'},
     ],
-    labels:["2023-01-15","2023-01-22","2023-01-29","2023-02-05","2023-02-12","2023-02-19","2023-02-26","2023-03-05","2023-03-12","2023-03-19","2023-03-26","2023-04-02","2023-04-09","2023-04-16","2023-04-23","2023-04-30","2023-05-07","2023-05-14","2023-05-21"],
-    combined:[0.5,0.5,0.0,0.0,5.0,16.0,22.0,61.5,89.5,95.5,81.5,68.5,59.0,87.5,73.0,62.0,26.5,2.5,2.0],
-    media:[0,0,0,0,0,0,0,0,0,1,0,1,2,0,1,1,3,12,0],
+    labels:["2023-01-08","2023-01-15","2023-01-22","2023-01-29","2023-02-05","2023-02-12","2023-02-19","2023-02-26","2023-03-05","2023-03-12","2023-03-19","2023-03-26","2023-04-02","2023-04-09","2023-04-16","2023-04-23","2023-04-30","2023-05-07","2023-05-14","2023-05-21","2023-05-28","2023-06-04","2023-06-11","2023-06-18","2023-06-25","2023-07-02","2023-07-09","2023-07-16","2023-07-23","2023-07-30"],
+    combined:[0.4,0.4,0.4,0.1,0.1,3.1,13.1,20.1,48.0,75.4,88.1,81.4,67.9,56.2,92.0,81.3,60.8,31.6,9.3,7.0,5.8,5.7,3.2,3.0,3.5,2.1,1.7,1.7,1.2,1.5],
+    media:[0,0,0,0,0,0,3,0,0,0,0,1,0,1,2,0,1,1,2,1,1,0,1,1,0,0,0,0,0,0],
     pivotIdx:6
   },
   '블랙맘바':{
@@ -563,25 +582,6 @@ const DB = {
     combined:[0.7,1.2,1.6,7.2,17.7,17.1,65.7,92.0,67.6,48.1,40.7,32.7,32.9,27.0,29.4,32.4,26.1,23.1,22.9,24.3,23.1,17.8,17.7,17.3,16.5,18.6,15.4,14.7,17.3,8.5,15.1,1.1],
     media:[0,0,0,0,115,46,46,35,17,52,43,8,44,11,21,8,0,62,48,5,9,1,2,1,2,12,0,1,6,0,0,5],
     pivotIdx:6
-  },
-  '러브어택':{
-    title:'리센느 — LOVE ATTACK',subtitle:'음원 발매 기준',category:'음악',period:'2024.07 ~ 2024.11',
-    tci:null,init:null,sust:null,corr:null,corr_r:null,partial:false,algo:false,
-    verdict:'발매 전 기사가 검색을 앞선 미디어 주도형 트렌드입니다',
-    desc:'발화 이전 구간에서 기사량이 검색량보다 크게 높게 나타났습니다. 발매 전 언론 보도가 먼저 나오고 이후 검색이 따라온 미디어 주도형 패턴입니다.',
-    vTitle:'미디어 주도형 — 발매 전 기사 선행',
-    vBody:'발매 이전 구간에서 기사가 먼저 나오고 검색량은 거의 0에 가까웠습니다. 발매 후 유튜브 중심으로 검색량이 올라온 미디어 주도형 패턴입니다.',
-    timeline:[
-      {date:'2024.07.14',text:'데이터 수집 시작 (발매일 6주 전)'},
-      {date:'2024.08.11',text:'발매 전 언론 보도 11건 집중'},
-      {date:'2024.08.27',text:'LOVE ATTACK 발매 — 피벗'},
-      {date:'2024.09.22~29',text:'검색량 최고점'},
-      {date:'2024.11',text:'검색량 하락'},
-    ],
-    labels:["2024-07-14","2024-07-21","2024-07-28","2024-08-04","2024-08-11","2024-08-18","2024-08-25","2024-09-01","2024-09-08","2024-09-15","2024-09-22","2024-09-29","2024-10-06","2024-10-13","2024-10-20","2024-10-27","2024-11-03","2024-11-10","2024-11-17","2024-11-24"],
-    combined:[0.0,0.0,0.1,0.0,0.1,0.0,0.0,8.9,20.9,33.2,54.6,63.8,55.6,51.0,23.9,17.0,11.1,11.7,8.3,1.0],
-    media:[0,0,0,1,11,5,4,2,3,22,2,23,0,5,3,0,3,0,0,2],
-    pivotIdx:7
   },
   '폴라럽':{
     title:'엔하이픈 — Polaroid Love',subtitle:'팬덤 자생 확산',category:'음악',period:'2021.11 ~ 2022.06',
@@ -625,7 +625,7 @@ function findCase(q){
   if(l.includes('지올팍')||l.includes('zior')||l.includes('christian')) return DB.지올팍;
   if(l.includes('블랙맘바')||l.includes('blackmamba')||l.includes('에스파')||l.includes('aespa')) return DB.블랙맘바;
   if(l.includes('폴라럽')||l.includes('polaroid')||l.includes('엔하이픈')||l.includes('enhypen')) return DB.폴라럽;
-  if(l.includes('러브어택')||l.includes('loveattack')||l.includes('love attack')) return DB.러브어택;
+  if(l.includes('러브어택')||l.includes('loveattack')||l.includes('love attack')||l.includes('rescene')) return DB.리센느;
   return null;
 }
 
@@ -713,7 +713,8 @@ function showResult(d){
   const defaultPeriod = d.category==='음악'
     ? '발화 이벤트 기준 전 6주 · 후 24주'
     : '첫 공개일 기준 전 6주 · 후 12주';
-  const altHint = d.alt ? ` — 멜론 1위 기준(${d.alt.labels[0]} ~ ${d.alt.labels[d.alt.labels.length-1]})으로 바꿔보세요` : '';
+  const altLabel = d.altLabel || '다른 기준';
+  const altHint = d.alt ? ` — ${altLabel}(${d.alt.labels[0]} ~ ${d.alt.labels[d.alt.labels.length-1]})으로 바꿔보세요` : '';
   document.getElementById('adj-info').textContent = `기본: ${defaultPeriod}${altHint}`;
   document.getElementById('adj-info').style.color = 'var(--muted)';
 
@@ -862,7 +863,7 @@ const SEARCH_HINTS = {
 };
 
 const CASE_LABELS = {
-  woodz:'WOODZ — Drowning', 리센느:'리센느', 러브어택:'리센느 — LOVE ATTACK',
+  woodz:'WOODZ — Drowning', 리센느:'리센느 — LOVE ATTACK', 러브어택:'리센느 — LOVE ATTACK',
   블랙맘바:'에스파 — Black Mamba', 폴라럽:'엔하이픈 — Polaroid Love',
   선업튀:'선재 업고 튀어', 우영우:'이상한 변호사 우영우',
   파친코:'파친코', 외계인:'외계+인 1부', 극한직업:'극한직업', 지올팍:'지올팍',
@@ -898,14 +899,26 @@ function isValidDate(str){
 function applyDateAdjust(){
   if(!currentCase) return;
   const s = document.getElementById('adj-start').value;
-  const e = document.getElementById('adj-end').value;
+  let e = document.getElementById('adj-end').value;
   const info = document.getElementById('adj-info');
 
-  if(!s || !e){
-    info.textContent = '⚠ 시작일과 종료일을 모두 선택해주세요';
+  if(!s){
+    info.textContent = '⚠ 시작일을 선택해주세요';
     info.style.color = '#E8715A';
     return;
   }
+
+  // 종료일 미입력 시 카테고리 기준으로 자동 계산
+  let autoEnd = false;
+  if(!e){
+    const weeks = currentCase.category === '음악' ? 24 : 12;
+    const endDate = new Date(s);
+    endDate.setDate(endDate.getDate() + weeks * 7);
+    e = endDate.toISOString().slice(0, 10);
+    autoEnd = true;
+    document.getElementById('adj-end').value = e;
+  }
+
   if(new Date(s) >= new Date(e)){
     info.textContent = '⚠ 종료일이 시작일보다 늦어야 해요';
     info.style.color = '#E8715A';
@@ -942,7 +955,7 @@ function applyDateAdjust(){
   if(startIdx === -1 || endIdx === -1 || startIdx > endIdx){
     // alt가 있으면 안내 메시지에 범위 힌트 포함
     const hint = currentCase.alt
-      ? `기본 데이터(${currentCase.labels[0]} ~ ${currentCase.labels[currentCase.labels.length-1]}) 또는 발매일 기준 데이터(${currentCase.alt.labels[0]} ~ ${currentCase.alt.labels[currentCase.alt.labels.length-1]}) 범위 내에서 선택해주세요`
+      ? `기본 데이터(${currentCase.labels[0]} ~ ${currentCase.labels[currentCase.labels.length-1]}) 또는 ${currentCase.altLabel||'다른 기준'} 데이터(${currentCase.alt.labels[0]} ~ ${currentCase.alt.labels[currentCase.alt.labels.length-1]}) 범위 내에서 선택해주세요`
       : `데이터 범위: ${labels[0]} ~ ${labels[labels.length-1]}`;
     info.textContent = `⚠ 선택한 기간에 데이터가 없어요. ${hint}`;
     info.style.color = '#E8715A';
@@ -959,7 +972,8 @@ function applyDateAdjust(){
 
   info.style.color = '#52C8A0';
   const isAlt = baseCase !== currentCase;
-  info.textContent = `${s} ~ ${e} 적용됨 (${endIdx-startIdx+1}주)${isAlt ? ' · 멜론 1위 기준 데이터' : ''}`;
+  const autoNote = autoEnd ? ` (종료일 자동: ${currentCase.category==='음악'?'24':'12'}주 기준)` : '';
+  info.textContent = `${s} ~ ${e} 적용됨 (${endIdx-startIdx+1}주)${isAlt ? ` · ${currentCase.altLabel||'다른 기준'} 데이터` : ''}${autoNote}`;
   document.getElementById('dateStart').value = s;
   document.getElementById('dateEnd').value   = e;
 
