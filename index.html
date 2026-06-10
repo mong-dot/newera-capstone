@@ -83,7 +83,7 @@ body[data-theme="light"]{
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);transition:background 0.25s,color 0.25s;font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR','-apple-system','BlinkMacSystemFont','Malgun Gothic',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
 body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 20% 20%,rgba(168,230,207,0.04) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(133,193,233,0.04) 0%,transparent 50%);pointer-events:none;z-index:0}
-.page{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 24px 80px}
+.page{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 24px 0}
 
 /* 홈 */
 #home{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 0}
@@ -197,7 +197,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .v-body strong{color:var(--text);font-weight:500}
 
 /* 유형표 */
-.type-table-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px}
+.type-table-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px 28px}
 .type-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--type-row-border)}
 .type-row:last-child{border-bottom:none}
 .type-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -345,7 +345,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 </div>
 
 <!-- 홈 -->
-<div id="home">
+<div id="home" style="padding-bottom:80px;">
   <div class="home-greeting fu">오늘은 어떤<br><em>트렌드</em>를 분석할까요?</div>
   <div class="home-sub fu d1">TCI — Trend Character Index<br>트렌드 유형 분석 지표</div>
 
@@ -359,16 +359,16 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   </div>
 
   <div class="chips fu d3">
+    <div class="chip" onclick="doSearch('WOODZ')">WOODZ — Drowning</div>
+    <div class="chip" onclick="doSearch('러브어택')">리센느 — LOVE ATTACK</div>
+    <div class="chip" onclick="doSearch('에스파')">에스파 — Black Mamba</div>
+    <div class="chip" onclick="doSearch('엔하이픈')">엔하이픈 — Polaroid Love</div>
     <div class="chip" onclick="doSearch('선업튀')">선재 업고 튀어</div>
     <div class="chip" onclick="doSearch('우영우')">이상한 변호사 우영우</div>
     <div class="chip" onclick="doSearch('파친코')">파친코</div>
     <div class="chip" onclick="doSearch('외계인')">외계+인 1부</div>
     <div class="chip" onclick="doSearch('극한직업')">극한직업</div>
-    <div class="chip" onclick="doSearch('WOODZ')">WOODZ — Drowning</div>
-    <div class="chip" onclick="doSearch('러브어택')">리센느 — LOVE ATTACK</div>
-    <div class="chip" onclick="doSearch('에스파')">에스파 — Black Mamba</div>
-    <div class="chip" onclick="doSearch('엔하이픈')">엔하이픈 — Polaroid Love</div>
-    <div class="chip" onclick="doSearch('지올팍')">지올팍 — CHRISTIAN</div>
+    <div class="chip" onclick="doSearch('지올팍')">지올팍</div>
   </div>
 
   <div class="period-notice fu d4">
@@ -393,16 +393,16 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   <div id="nf-suggest-wrap"></div>
   <div class="nf-sub">현재 지원하는 사례</div>
   <div class="chips" style="justify-content:center">
+    <div class="chip" onclick="doSearch('WOODZ')">WOODZ</div>
+    <div class="chip" onclick="doSearch('러브어택')">LOVE ATTACK</div>
+    <div class="chip" onclick="doSearch('에스파')">에스파</div>
+    <div class="chip" onclick="doSearch('엔하이픈')">엔하이픈</div>
     <div class="chip" onclick="doSearch('선업튀')">선업튀</div>
     <div class="chip" onclick="doSearch('우영우')">우영우</div>
     <div class="chip" onclick="doSearch('파친코')">파친코</div>
     <div class="chip" onclick="doSearch('외계인')">외계+인</div>
     <div class="chip" onclick="doSearch('극한직업')">극한직업</div>
-    <div class="chip" onclick="doSearch('WOODZ')">WOODZ</div>
-    <div class="chip" onclick="doSearch('러브어택')">LOVE ATTACK</div>
-    <div class="chip" onclick="doSearch('에스파')">에스파</div>
-    <div class="chip" onclick="doSearch('엔하이픈')">엔하이픈</div>
-    <div class="chip" onclick="doSearch('지올팍')">CHRISTIAN</div>
+    <div class="chip" onclick="doSearch('지올팍')">지올팍</div>
   </div>
 </div>
 
@@ -465,10 +465,40 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="v-title" id="v-title"></div>
     <div class="v-body" id="v-body"></div>
   </div>
-  <div id="type-section"></div>
+</div>
+</div>
+<div id="type-section" style="display:none;max-width:780px;margin:0 auto;padding:0 24px 40px;">
+  <div class="type-table-card">
+    <div class="chart-title" style="margin-bottom:14px">TCI 유형 분류표</div>
+    <div class="type-row">
+      <div class="type-name" style="color:#52C8A0"><span class="type-dot" style="background:#52C8A0"></span>참여자 주도형</div>
+      <div class="type-desc">검색이 기사를 크게 선행 — 자생적 확산</div>
+      <div class="type-ex">Drowning(멜론1위) · 선재 업고 튀어<br>이상한 변호사 우영우 · Polaroid Love</div>
+    </div>
+    <div class="type-row">
+      <div class="type-name" style="color:#85C1E9"><span class="type-dot" style="background:#85C1E9"></span>혼합형</div>
+      <div class="type-desc">검색·기사 비슷한 비율로 동반 성장</div>
+      <div class="type-ex">파친코</div>
+    </div>
+    <div class="type-row">
+      <div class="type-name" style="color:#E8715A"><span class="type-dot" style="background:#E8715A"></span>미디어 주도형</div>
+      <div class="type-desc">기사·마케팅이 검색을 앞섬</div>
+      <div class="type-ex">Love Attack(발매일) · 외계+인 1부<br>극한직업 · Black Mamba</div>
+    </div>
+    <div class="type-row">
+      <div class="type-name" style="color:#C8A8E9"><span class="type-dot" style="background:#C8A8E9"></span>데이터 기사량 부족</div>
+      <div class="type-desc">주간 최대 기사수 20건 미만 — 분류 불가</div>
+      <div class="type-ex">CHRISTIAN · Drowning(발매일)</div>
+    </div>
+    <div class="type-row">
+      <div class="type-name" style="color:#F4C842"><span class="type-dot" style="background:#F4C842"></span>데이터 수집 기간 부족</div>
+      <div class="type-desc">피벗 이후 12주 미만 — 축적 후 재분류</div>
+      <div class="type-ex">Love Attack(유튜브 유행)</div>
+    </div>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted)">* TCI는 트렌드의 옳고 그름을 판단하지 않습니다. 발화 경로를 유형화하는 도구입니다.</div>
+  </div>
 </div>
 
-</div>
 
 <script>
 // ── 팝업 모달
@@ -648,7 +678,7 @@ const DB = {
     pivotIdx:6
   },
   '지올팍':{
-    title:'지올팍 — CHRISTIAN',subtitle:'역주행',category:'음악',period:'2023.01 ~ 2023.07',
+    title:'지올팍',subtitle:'CHRISTIAN · 역주행',category:'음악',period:'2023.01 ~ 2023.07',
     tci:null,init:null,sust:null,corr:null,corr_r:null,partial:false,algo:true,
     verdict:'기사 데이터가 부족하여 유형 분류가 어렵습니다',
     desc:'빅카인즈 기준 주간 최대 기사수가 3건으로 분류 기준치(20건)에 미달합니다. 기사 없이 유튜브 쇼츠 알고리즘만으로 트렌드가 형성된 것으로 추정되는 사례입니다.',
@@ -706,10 +736,10 @@ const DB = {
 };
 
 const TYPE_MAP = [
-  {type:'참여자 주도형',      color:'#52C8A0', desc:'검색이 기사를 크게 선행 — 자생적 확산',    ex:'WOODZ(멜론1위) · 외계+인 · 폴라럽 · 우영우'},
-  {type:'혼합형',             color:'#85C1E9', desc:'검색·기사 비슷한 비율로 동반 성장',         ex:'극한직업 · 선업튀'},
-  {type:'미디어 주도형',      color:'#E8715A', desc:'기사·마케팅이 검색을 앞섬',                 ex:'파친코 · 블랙맘바 · LOVE ATTACK'},
-  {type:'데이터 기사량 부족', color:'#C8A8E9', desc:'주간 최대 기사수 20건 미만 — 분류 불가',   ex:'지올팍 · WOODZ(발매일)'},
+  {type:'참여자 주도형',      color:'#52C8A0', desc:'검색이 기사를 크게 선행 — 자생적 확산',    ex:'Drowning(멜론1위) · 선재 업고 튀어<br>이상한 변호사 우영우 · Polaroid Love'},
+  {type:'혼합형',             color:'#85C1E9', desc:'검색·기사 비슷한 비율로 동반 성장',         ex:'파친코'},
+  {type:'미디어 주도형',      color:'#E8715A', desc:'기사·마케팅이 검색을 앞섬',                 ex:'Love Attack(발매일) · 외계+인 1부<br>극한직업 · Black Mamba'},
+  {type:'데이터 기사량 부족', color:'#C8A8E9', desc:'주간 최대 기사수 20건 미만 — 분류 불가',   ex:'CHRISTIAN · Drowning(발매일)'},
   {type:'데이터 수집 기간 부족', color:'#F4C842', desc:'피벗 이후 12주 미만 — 축적 후 재분류', ex:'리센느'},
 ];
 
@@ -734,6 +764,7 @@ function findCase(q){
 function doSearch(q){
   if(!q||!q.trim()) return;
   ['home','result','notfound'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('type-section').style.display='none';
   document.getElementById('loading').style.display='block';
   const msgs=['데이터 불러오는 중...','검색량 분석 중...','기사량 비교 중...','TCI 계산 중...'];
   let mi=0;
@@ -810,6 +841,7 @@ function showResult(d){
   currentCase = d;
   const r=document.getElementById('result');
   r.style.display='block';
+  document.getElementById('type-section').style.display='block';
 
   // 날짜 바 기본값 표시
   const defaultPeriod = d.category==='음악'
@@ -934,19 +966,7 @@ function showResult(d){
     .replace(/\s*\([가-힣\s]+가중치\)/g,'');
   document.getElementById('v-body').innerHTML=cleanBody;
 
-  // 유형표 + 계산 방법 (중복 방지)
-  const ts=document.getElementById('type-section');
-  ts.innerHTML=`
-    <div class="type-table-card fu d5">
-      <div class="chart-title" style="margin-bottom:14px">TCI 유형 분류표</div>
-      ${TYPE_MAP.map(t=>`
-        <div class="type-row">
-          <div class="type-name" style="color:${t.color}"><span class="type-dot" style="background:${t.color}"></span>${t.type}</div>
-          <div class="type-desc">${t.desc}</div>
-          <div class="type-ex">${t.ex}</div>
-        </div>`).join('')}
-      <div style="margin-top:10px;font-size:11px;color:var(--muted)">* TCI는 트렌드의 옳고 그름을 판단하지 않습니다. 발화 경로를 유형화하는 도구입니다.</div>
-    </div>`;
+
 
   // 애니메이션
   r.querySelectorAll('.fu').forEach(el=>{el.style.animation='none';el.offsetHeight;el.style.animation='';});
@@ -954,6 +974,7 @@ function showResult(d){
 
 function goHome(){
   ['result','notfound'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('type-section').style.display='none';
   document.getElementById('home').style.display='flex';
   if(chartObj){chartObj.destroy();chartObj=null;}
 }
