@@ -20,7 +20,7 @@ html[data-theme="dark"]{
   --modal-bg:#1A1A1E;--modal-row:rgba(255,255,255,0.04);
   --notice-bg:rgba(255,255,255,0.04);--notice-border:rgba(255,255,255,0.08);
   --notice-sub-border:rgba(255,255,255,0.06);
-  --chart-bar:rgba(168,230,207,0.2);--chart-line:#52C8A0;--chart-fill:rgba(82,200,160,0.05);
+  --chart-bar:rgba(212,83,126,0.22);--chart-bar-border:rgba(212,83,126,0.5);--chart-line:#52C8A0;--chart-fill:rgba(82,200,160,0.08);
   --grid-color:rgba(255,255,255,0.06);--tick-color:#888890;
   --mc-bar-bg:rgba(255,255,255,0.08);
   --type-row-border:rgba(255,255,255,0.05);
@@ -37,7 +37,7 @@ body[data-theme="dark"]{
   --modal-bg:#1A1A1E;--modal-row:rgba(255,255,255,0.04);
   --notice-bg:rgba(255,255,255,0.04);--notice-border:rgba(255,255,255,0.08);
   --notice-sub-border:rgba(255,255,255,0.06);
-  --chart-bar:rgba(168,230,207,0.2);--chart-line:#52C8A0;--chart-fill:rgba(82,200,160,0.05);
+  --chart-bar:rgba(212,83,126,0.22);--chart-bar-border:rgba(212,83,126,0.5);--chart-line:#52C8A0;--chart-fill:rgba(82,200,160,0.08);
   --grid-color:rgba(255,255,255,0.06);--tick-color:#888890;
   --mc-bar-bg:rgba(255,255,255,0.08);
   --type-row-border:rgba(255,255,255,0.05);
@@ -54,7 +54,7 @@ html[data-theme="light"]{
   --modal-bg:#FFFFFF;--modal-row:rgba(0,0,0,0.06);
   --notice-bg:rgba(0,0,0,0.06);--notice-border:rgba(0,0,0,0.1);
   --notice-sub-border:rgba(0,0,0,0.08);
-  --chart-bar:rgba(42,157,122,0.2);--chart-line:#52C8A0;--chart-fill:rgba(42,157,122,0.06);
+  --chart-bar:rgba(186,50,100,0.18);--chart-bar-border:rgba(186,50,100,0.45);--chart-line:#52C8A0;--chart-fill:rgba(42,157,122,0.08);
   --grid-color:rgba(0,0,0,0.06);--tick-color:#666670;
   --mc-bar-bg:rgba(0,0,0,0.08);
   --type-row-border:rgba(0,0,0,0.05);
@@ -71,7 +71,7 @@ body[data-theme="light"]{
   --modal-bg:#FFFFFF;--modal-row:rgba(0,0,0,0.06);
   --notice-bg:rgba(0,0,0,0.06);--notice-border:rgba(0,0,0,0.1);
   --notice-sub-border:rgba(0,0,0,0.08);
-  --chart-bar:rgba(42,157,122,0.2);--chart-line:#52C8A0;--chart-fill:rgba(42,157,122,0.06);
+  --chart-bar:rgba(186,50,100,0.18);--chart-bar-border:rgba(186,50,100,0.45);--chart-line:#52C8A0;--chart-fill:rgba(42,157,122,0.08);
   --grid-color:rgba(0,0,0,0.06);--tick-color:#666670;
   --mc-bar-bg:rgba(0,0,0,0.08);
   --type-row-border:rgba(0,0,0,0.05);
@@ -83,7 +83,7 @@ body[data-theme="light"]{
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);transition:background 0.25s,color 0.25s;font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR','-apple-system','BlinkMacSystemFont','Malgun Gothic',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
 body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 20% 20%,rgba(168,230,207,0.04) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(133,193,233,0.04) 0%,transparent 50%);pointer-events:none;z-index:0}
-.page{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 24px 0}
+.page{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 24px 80px}
 
 /* 홈 */
 #home{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 0}
@@ -197,7 +197,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .v-body strong{color:var(--text);font-weight:500}
 
 /* 유형표 */
-.type-table-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px 28px}
+.type-table-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px}
 .type-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--type-row-border)}
 .type-row:last-child{border-bottom:none}
 .type-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -345,7 +345,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 </div>
 
 <!-- 홈 -->
-<div id="home" style="padding-bottom:80px;">
+<div id="home">
   <div class="home-greeting fu">오늘은 어떤<br><em>트렌드</em>를 분석할까요?</div>
   <div class="home-sub fu d1">TCI — Trend Character Index<br>트렌드 유형 분석 지표</div>
 
@@ -359,16 +359,22 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   </div>
 
   <div class="chips fu d3">
+    <div class="chip" onclick="doSearch('왕사남')">왕과 사는 남자</div>
+    <div class="chip" onclick="doSearch('황가람')">황가람 — 나는 반딧불</div>
+    <div class="chip" onclick="doSearch('폭싹')">폭싹 속았수다</div>
     <div class="chip" onclick="doSearch('WOODZ')">WOODZ — Drowning</div>
     <div class="chip" onclick="doSearch('러브어택')">리센느 — LOVE ATTACK</div>
     <div class="chip" onclick="doSearch('에스파')">에스파 — Black Mamba</div>
     <div class="chip" onclick="doSearch('엔하이픈')">엔하이픈 — Polaroid Love</div>
+    <div class="chip" onclick="doSearch('다이너마이트')">BTS — Dynamite</div>
+    <div class="chip" onclick="doSearch('사랑은늘도망가')">임영웅 — 사랑은 늘 도망가</div>
     <div class="chip" onclick="doSearch('선업튀')">선재 업고 튀어</div>
     <div class="chip" onclick="doSearch('우영우')">이상한 변호사 우영우</div>
     <div class="chip" onclick="doSearch('파친코')">파친코</div>
+    <div class="chip" onclick="doSearch('기생충')">기생충</div>
     <div class="chip" onclick="doSearch('외계인')">외계+인 1부</div>
     <div class="chip" onclick="doSearch('극한직업')">극한직업</div>
-    <div class="chip" onclick="doSearch('지올팍')">지올팍</div>
+    <div class="chip" onclick="doSearch('지올팍')">지올팍 — CHRISTIAN</div>
   </div>
 
   <div class="period-notice fu d4">
@@ -393,16 +399,22 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   <div id="nf-suggest-wrap"></div>
   <div class="nf-sub">현재 지원하는 사례</div>
   <div class="chips" style="justify-content:center">
+    <div class="chip" onclick="doSearch('왕사남')">왕과 사는 남자</div>
+    <div class="chip" onclick="doSearch('황가람')">황가람</div>
+    <div class="chip" onclick="doSearch('폭싹')">폭싹 속았수다</div>
     <div class="chip" onclick="doSearch('WOODZ')">WOODZ</div>
     <div class="chip" onclick="doSearch('러브어택')">LOVE ATTACK</div>
     <div class="chip" onclick="doSearch('에스파')">에스파</div>
     <div class="chip" onclick="doSearch('엔하이픈')">엔하이픈</div>
+    <div class="chip" onclick="doSearch('다이너마이트')">Dynamite</div>
+    <div class="chip" onclick="doSearch('사랑은늘도망가')">사랑은 늘 도망가</div>
     <div class="chip" onclick="doSearch('선업튀')">선업튀</div>
     <div class="chip" onclick="doSearch('우영우')">우영우</div>
     <div class="chip" onclick="doSearch('파친코')">파친코</div>
+    <div class="chip" onclick="doSearch('기생충')">기생충</div>
     <div class="chip" onclick="doSearch('외계인')">외계+인</div>
     <div class="chip" onclick="doSearch('극한직업')">극한직업</div>
-    <div class="chip" onclick="doSearch('지올팍')">지올팍</div>
+    <div class="chip" onclick="doSearch('지올팍')">지올팍 — CHRISTIAN</div>
   </div>
 </div>
 
@@ -450,10 +462,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   </div>
   <div class="chart-card fu d2">
     <div class="chart-title">통합 검색량 vs 미디어 기사량</div>
-    <div class="chart-sub">통합 검색량 = 구글 웹 + 유튜브 + 네이버 평균 · 노란 점선 = 발화 이벤트</div>
+    <div class="chart-sub">통합 검색량 = 구글 웹 + 유튜브 + 네이버 평균 · 회색 점선 = 발화 이벤트</div>
     <div class="legend">
       <div class="leg-item"><div class="leg-dot" style="background:#52C8A0"></div>통합 검색량</div>
-      <div class="leg-item"><div class="leg-dot" style="background:rgba(168,230,207,0.4);height:10px;width:10px;border-radius:2px"></div>미디어 기사수</div>
+      <div class="leg-item"><div class="leg-dot" style="background:rgba(212,83,126,0.45);height:10px;width:10px;border-radius:2px"></div>미디어 기사수</div>
     </div>
     <div class="chart-wrap"><canvas id="trendChart" role="img" aria-label="통합 검색량과 기사량 시계열 비교"></canvas></div>
   </div>
@@ -465,40 +477,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="v-title" id="v-title"></div>
     <div class="v-body" id="v-body"></div>
   </div>
-</div>
-</div>
-<div id="type-section" style="display:none;max-width:780px;margin:0 auto;padding:0 24px 40px;">
-  <div class="type-table-card">
-    <div class="chart-title" style="margin-bottom:14px">TCI 유형 분류표</div>
-    <div class="type-row">
-      <div class="type-name" style="color:#52C8A0"><span class="type-dot" style="background:#52C8A0"></span>참여자 주도형</div>
-      <div class="type-desc">검색이 기사를 크게 선행 — 자생적 확산</div>
-      <div class="type-ex">Drowning(멜론1위) · 선재 업고 튀어<br>이상한 변호사 우영우 · Polaroid Love</div>
-    </div>
-    <div class="type-row">
-      <div class="type-name" style="color:#85C1E9"><span class="type-dot" style="background:#85C1E9"></span>혼합형</div>
-      <div class="type-desc">검색·기사 비슷한 비율로 동반 성장</div>
-      <div class="type-ex">파친코</div>
-    </div>
-    <div class="type-row">
-      <div class="type-name" style="color:#E8715A"><span class="type-dot" style="background:#E8715A"></span>미디어 주도형</div>
-      <div class="type-desc">기사·마케팅이 검색을 앞섬</div>
-      <div class="type-ex">Love Attack(발매일) · 외계+인 1부<br>극한직업 · Black Mamba</div>
-    </div>
-    <div class="type-row">
-      <div class="type-name" style="color:#C8A8E9"><span class="type-dot" style="background:#C8A8E9"></span>데이터 기사량 부족</div>
-      <div class="type-desc">주간 최대 기사수 20건 미만 — 분류 불가</div>
-      <div class="type-ex">CHRISTIAN · Drowning(발매일)</div>
-    </div>
-    <div class="type-row">
-      <div class="type-name" style="color:#F4C842"><span class="type-dot" style="background:#F4C842"></span>데이터 수집 기간 부족</div>
-      <div class="type-desc">피벗 이후 12주 미만 — 축적 후 재분류</div>
-      <div class="type-ex">Love Attack(유튜브 유행)</div>
-    </div>
-    <div style="margin-top:10px;font-size:11px;color:var(--muted)">* TCI는 트렌드의 옳고 그름을 판단하지 않습니다. 발화 경로를 유형화하는 도구입니다.</div>
-  </div>
+  <div id="type-section"></div>
 </div>
 
+</div>
 
 <script>
 // ── 팝업 모달
@@ -569,21 +551,22 @@ const DB = {
     pivotIdx:7,
     altLabel:'거제야호 밈 기준',
     alt:{
-      period:'2026.02 ~ 2026.05',
-      verdict:'현재 진행 중인 트렌드 — 데이터 축적 후 재분류 예정입니다',
-      desc:'분석 기간이 3개월 미만으로 유형 확정이 어렵습니다. 거제야호 밈이 기사로 먼저 확산된 후 검색량이 따라온 패턴이 관찰됩니다.',
-      vTitle:'데이터 수집 기간 부족',
-      vBody:'리센느는 <strong>거제야호 밈</strong>을 통해 인지도를 얻은 케이스입니다. 기사가 검색량보다 먼저 올라간 패턴이 관찰되지만, 지속성 측정을 위해 <strong>데이터 축적이 필요</strong>합니다.',
+      period:'2026.02 ~ 2026.06',
+      verdict:'기사 데이터가 부족하여 유형 분류가 어렵습니다',
+      desc:'17주 데이터 수집 완료. 주간 최대 기사수가 7건으로 분류 기준치(20건)에 미달합니다. 거제야호 밈으로 인해 검색량이 급등했지만 언론 보도는 따라오지 않은 참여자 자생 확산 패턴으로 추정됩니다.',
+      vTitle:'데이터 기사량 부족',
+      vBody:'주간 최대 기사수가 <strong>7건</strong>으로 분류 기준치(20건)에 미달합니다. 거제야호 밈을 통해 검색량이 급등했지만 언론 보도는 따라오지 않아 <strong>자생적 확산</strong>으로 추정됩니다.',
       timeline:[
         {date:'2026.02',text:'리센느 활동 시작'},
-        {date:'2026.03',text:'거제야호 밈 확산 → 미디어 기사 증가'},
-        {date:'2026.05',text:'검색량 급등 — 현재 진행 중'},
+        {date:'2026.03',text:'거제야호 밈 확산 → 검색량 자생 상승'},
+        {date:'2026.05.24',text:'검색량 최고점 (74.8)'},
+        {date:'2026.05.31',text:'검색량 최정점 (93.7)'},
       ],
       labels:["2026-02-08","2026-02-15","2026-02-22","2026-03-01","2026-03-08","2026-03-15","2026-03-22","2026-03-29","2026-04-05","2026-04-12","2026-04-19","2026-04-26","2026-05-03","2026-05-10","2026-05-17","2026-05-24","2026-05-31"],
-      combined:[2.6,2.3,2.5,2.5,2.4,2.0,2.5,4.3,5.1,4.7,3.5,4.3,13.8,22.7,35.5,74.5,92.7],
+      combined:[2.6,2.3,2.5,2.5,2.4,2.4,2.5,4.3,4.8,4.7,3.8,4.3,13.4,23.1,34.8,74.8,93.7],
       media:[0,0,2,1,0,3,0,3,7,6,1,0,1,0,3,7,6],
       pivotIdx:12,
-      forceType:'데이터 수집 기간 부족',
+      forceType:'데이터 기사량 부족',
     }
   },
   '선업튀':{
@@ -732,15 +715,128 @@ const DB = {
     combined:[3.0,14.0,16.7,19.4,25.0,28.7,29.4,48.3,59.5,63.0,71.1,73.3,62.4,60.9,69.6,60.1,50.7,45.9,41.3,35.0,35.5,32.8,31.1,32.1,33.5,29.9,29.5,31.8,27.4,31.3,29.2,0.8],
     media:[0,11,17,8,17,14,24,219,34,7,11,16,3,5,1,4,7,0,0,2,2,4,1,10,7,0,2,1,3,11,4,5],
     pivotIdx:5
+  },
+  '왕사남':{
+    title:'왕과 사는 남자',subtitle:'개봉 흥행 · 1170만 관객',category:'영화',period:'2025.12 ~ 2026.04',
+    tci:null,init:null,sust:null,corr:null,corr_r:null,partial:false,algo:false,
+    verdict:'개봉 전부터 검색이 기사를 앞선 참여자 주도형 트렌드입니다',
+    desc:'발화 이전 구간에서 검색량이 기사량보다 약 2.4배 높게 나타났습니다. 개봉 전부터 관심이 형성되었고, 흥행 본격화 이후 기사가 폭증한 참여자 주도형 패턴입니다.',
+    vTitle:'참여자 주도형 — 흥행 자생 확산',
+    vBody:'개봉 전 구간에서 검색량이 기사량을 앞섰습니다. 이후 흥행 속도가 빨라지며 기사량이 폭증(주간 최대 357건)했지만, 초기 관심은 대중 검색이 먼저 이끈 패턴입니다.',
+    timeline:[
+      {date:'2025.12.28',text:'데이터 수집 시작'},
+      {date:'2026.02.01',text:'개봉 추정 시점 — 검색량 급등 시작(피벗)'},
+      {date:'2026.03.08',text:'기사 357건 집중 — 흥행 속보 보도 폭증'},
+      {date:'2026.03.01',text:'통합 검색량 최고점'},
+      {date:'2026.04',text:'1170만 관객 돌파 — 장기 흥행'},
+    ],
+    labels:["2025-12-28","2026-01-04","2026-01-11","2026-01-18","2026-01-25","2026-02-01","2026-02-08","2026-02-15","2026-02-22","2026-03-01","2026-03-08","2026-03-15","2026-03-22","2026-03-29","2026-04-05","2026-04-12","2026-04-19","2026-04-26"],
+    combined:[0.7,0.5,0.8,3.7,4.3,16.4,35.9,73.3,81.7,91.4,79.7,51.1,38.7,27.5,23.2,16.3,13.2,18.4],
+    media:[0,0,1,0,15,7,17,27,79,91,357,320,187,190,108,88,71,51],
+    pivotIdx:5
+  },
+  '황가람':{
+    title:'황가람 — 나는 반딧불',subtitle:'역주행 · 음악방송 신드롬',category:'음악',period:'2024.09 ~ 2025.04',
+    tci:null,init:null,sust:null,corr:null,corr_r:null,partial:false,algo:true,
+    verdict:'기사 데이터가 부족하여 유형 분류가 어렵습니다',
+    desc:'빅카인즈 기준 주간 최대 기사수가 11건으로 분류 기준치(20건)에 미달합니다. 음악방송 직캠과 쇼츠 확산을 통해 검색량이 먼저 자생적으로 늘어난 사례입니다.',
+    vTitle:'데이터 기사량 부족',
+    vBody:'주간 최대 기사수가 <strong>11건</strong>으로 유형 분류 기준치(20건)에 미달합니다. 직캠·쇼츠 중심 확산으로 검색량이 먼저 늘고 기사가 뒤따른 패턴으로 추정됩니다.',
+    timeline:[
+      {date:'2024.09.15',text:'데이터 수집 시작'},
+      {date:'2024.10~11',text:'음악방송 직캠 확산 — 검색량 자생적 상승'},
+      {date:'2024.12',text:'역주행 본격화'},
+      {date:'2025.02.02',text:'통합 검색량 1차 고점'},
+      {date:'2025.03.30',text:'통합 검색량 최고점'},
+    ],
+    labels:["2024-09-15","2024-09-22","2024-09-29","2024-10-06","2024-10-13","2024-10-20","2024-10-27","2024-11-03","2024-11-10","2024-11-17","2024-11-24","2024-12-01","2024-12-08","2024-12-15","2024-12-22","2024-12-29","2025-01-05","2025-01-12","2025-01-19","2025-01-26","2025-02-02","2025-02-09","2025-02-16","2025-02-23","2025-03-02","2025-03-09","2025-03-16","2025-03-23","2025-03-30","2025-04-06","2025-04-13","2025-04-20"],
+    combined:[0.0,0.2,0.2,0.0,0.2,1.5,5.2,10.0,11.5,17.2,21.8,25.0,28.0,30.8,21.0,31.5,36.5,43.0,39.5,39.2,86.2,81.8,56.2,48.2,37.8,40.8,44.5,34.5,99.0,40.8,26.2,32.0],
+    media:[0,0,0,0,0,0,0,0,0,0,0,3,1,1,3,0,0,0,7,0,0,11,5,6,2,1,8,4,10,6,5,7],
+    pivotIdx:11
+  },
+  '기생충':{
+    title:'기생충',subtitle:'봉준호 · 칸 황금종려상',category:'영화',period:'2019.04 ~ 2019.08',
+    tci:null,init:null,sust:null,corr:null,corr_r:null,partial:false,algo:false,
+    verdict:'기사·마케팅이 검색을 앞선 미디어 주도형 트렌드입니다',
+    desc:'발화 이전 구간에서 기사량이 검색량보다 크게 높게 나타났습니다. 칸 황금종려상 수상 보도가 먼저 폭발하고 이후 검색이 따라온 미디어 주도형 패턴입니다.',
+    vTitle:'미디어 주도형 — 수상 보도 선행',
+    vBody:'발화 이전 구간에서 기사가 검색을 앞섰습니다(ratio 0.67). 칸 수상 발표 직후 주간 기사 528건, 다음 주 734건으로 보도가 폭증한 뒤 검색량이 뒤따른 전형적인 미디어 주도형입니다.',
+    timeline:[
+      {date:'2019.04.21',text:'데이터 수집 시작 (칸 출품 6주 전)'},
+      {date:'2019.05.21',text:'칸 영화제 황금종려상 수상 — 피벗'},
+      {date:'2019.05.30',text:'국내 개봉'},
+      {date:'2019.06.02',text:'검색량·기사량 동시 최고점'},
+      {date:'2019.08',text:'북미 개봉 이후 글로벌 화제'},
+    ],
+    labels:["2019-04-21","2019-04-28","2019-05-05","2019-05-12","2019-05-19","2019-05-26","2019-06-02","2019-06-09","2019-06-16","2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18"],
+    combined:[2.1,5.4,2.3,2.9,14.3,58.3,100.0,54.0,34.6,27.7,22.6,20.1,17.0,17.0,19.2,30.7,28.7,17.6],
+    media:[36,122,24,26,90,528,734,403,234,277,139,71,54,57,109,45,19,28],
+    pivotIdx:5
+  },
+  '다이너마이트':{
+    title:'BTS — Dynamite',subtitle:'빌보드 핫100 1위',category:'음악',period:'2020.07 ~ 2021.01',
+    tci:null,init:null,sust:null,corr:null,corr_r:null,partial:false,algo:false,
+    verdict:'기사·마케팅이 검색을 앞선 미디어 주도형 트렌드입니다',
+    desc:'발화 이전 구간에서 기사량이 검색량보다 크게 높게 나타났습니다(ratio 0.21). 발매 전부터 대규모 언론 보도가 집중되고 이후 검색이 따라온 미디어 주도형 패턴입니다.',
+    vTitle:'미디어 주도형 — 발매 전 보도 집중',
+    vBody:'발화 이전 구간에서 기사가 검색을 크게 앞섰습니다(ratio 0.21). 발매 직전부터 주간 36건 보도가 시작되었고, 발매 후 128건·157건으로 폭증한 뒤 검색량이 뒤따른 패턴입니다.',
+    timeline:[
+      {date:'2020.07.12',text:'데이터 수집 시작 (발매 6주 전)'},
+      {date:'2020.08.21',text:'Dynamite 발매 — 피벗'},
+      {date:'2020.08.31',text:'빌보드 핫100 1위 — 기사 폭증'},
+      {date:'2020.09.13',text:'검색량 최고점 부근 (34.4)'},
+      {date:'2020.09.27',text:'통합 검색량 1차 정점 (69.6)'},
+    ],
+    labels:["2020-07-12","2020-07-19","2020-07-26","2020-08-02","2020-08-09","2020-08-16","2020-08-23","2020-08-30","2020-09-06","2020-09-13","2020-09-20","2020-09-27","2020-10-04","2020-10-11","2020-10-18","2020-10-25","2020-11-01","2020-11-08","2020-11-15","2020-11-22","2020-11-29","2020-12-06","2020-12-13","2020-12-20","2020-12-27","2021-01-03","2021-01-10","2021-01-17","2021-01-24","2021-01-31"],
+    combined:[0.1,0.1,0.1,0.1,5.2,1.1,33.3,12.1,29.9,34.4,25.0,69.6,52.7,63.6,56.0,51.4,54.4,41.3,19.8,52.8,46.2,39.0,39.2,41.0,24.8,31.4,33.7,27.8,26.8,28.2],
+    media:[0,0,0,0,36,35,128,133,157,24,51,47,24,16,17,27,5,7,13,29,18,7,28,37,18,6,22,5,24,23],
+    pivotIdx:6
+  },
+  '사랑은늘도망가':{
+    title:'임영웅 — 사랑은 늘 도망가',subtitle:'역주행 · 롱런',category:'음악',period:'2021.09 ~ 2022.03',
+    tci:null,init:null,sust:null,corr:null,corr_r:null,partial:false,algo:false,
+    verdict:'기사·마케팅이 검색을 앞선 미디어 주도형 트렌드입니다',
+    desc:'발화 이전 구간에서 기사량이 검색량보다 높게 나타났습니다(ratio 0.60). 음악방송 보도가 먼저 쌓이고 이후 검색이 장기적으로 유지된 미디어 주도형 패턴입니다.',
+    vTitle:'미디어 주도형 — 방송 보도 선행',
+    vBody:'발화 이전 구간에서 기사가 검색을 앞섰습니다(ratio 0.60). 방영 보도가 선행한 뒤 검색량이 꾸준히 높게 유지되는 <strong>롱런 미디어 주도형</strong> 패턴이 특징입니다.',
+    timeline:[
+      {date:'2021.09.05',text:'데이터 수집 시작'},
+      {date:'2021.10.17',text:'방송 보도 집중 — 피벗'},
+      {date:'2021.12.19',text:'통합 검색량 최고점 (95.7)'},
+      {date:'2022.01~03',text:'검색량 60 이상 장기 유지 — 롱런'},
+    ],
+    labels:["2021-09-05","2021-09-12","2021-09-19","2021-09-26","2021-10-03","2021-10-10","2021-10-17","2021-10-24","2021-10-31","2021-11-07","2021-11-14","2021-11-21","2021-11-28","2021-12-05","2021-12-12","2021-12-19","2021-12-26","2022-01-02","2022-01-09","2022-01-16","2022-01-23","2022-01-30","2022-02-06","2022-02-13","2022-02-20","2022-02-27","2022-03-06","2022-03-13","2022-03-20","2022-03-27"],
+    combined:[0.3,0.3,0.4,11.3,8.6,10.5,37.0,33.0,57.2,57.1,51.6,45.3,38.3,42.8,47.0,62.6,95.7,76.8,66.4,64.8,62.0,64.3,57.9,51.6,50.4,57.3,63.1,56.9,62.8,59.4],
+    media:[0,0,0,0,1,11,22,5,4,2,11,3,2,6,3,3,0,1,5,8,4,2,5,3,3,0,3,0,2,4],
+    pivotIdx:6
+  },
+  '폭싹':{
+    title:'폭싹 속았수다',subtitle:'넷플릭스 드라마 · 신드롬',category:'드라마',period:'2025.01 ~ 2025.05',
+    tci:null,init:null,sust:null,corr:null,corr_r:null,partial:false,algo:false,
+    verdict:'검색과 기사가 비슷한 비율로 동반 성장한 혼합형 트렌드입니다',
+    desc:'발화 이전 구간에서 검색량과 기사량 비율이 약 0.67로 미디어 주도형 경계에 가까운 혼합형으로 나타났습니다. 방영 초반부터 화제성과 보도가 함께 커진 패턴입니다.',
+    vTitle:'혼합형 — 검색·보도 동반 성장',
+    vBody:'방영 초반 검색량과 기사량이 비슷한 속도로 함께 늘어 혼합형으로 분류됩니다. 4월 첫째 주 기사 206건으로 보도가 정점을 찍은 뒤 검색량도 함께 높게 유지됐습니다.',
+    timeline:[
+      {date:'2025.01.26',text:'데이터 수집 시작'},
+      {date:'2025.03.07',text:'첫 방영 추정 — 검색량 상승 시작(피벗)'},
+      {date:'2025.03.30',text:'통합 검색량 최고점'},
+      {date:'2025.04.06',text:'기사 206건 집중 — 보도 정점'},
+      {date:'2025.05',text:'화제성 점진적 하락'},
+    ],
+    labels:["2025-01-26","2025-02-02","2025-02-09","2025-02-16","2025-02-23","2025-03-02","2025-03-09","2025-03-16","2025-03-23","2025-03-30","2025-04-06","2025-04-13","2025-04-20","2025-04-27","2025-05-04","2025-05-11","2025-05-18","2025-05-25"],
+    combined:[0.7,0.9,0.8,0.7,1.4,6.9,53.3,85.0,94.3,99.7,54.9,36.3,26.7,19.4,18.6,14.3,10.4,9.1],
+    media:[1,0,21,4,5,4,54,112,121,129,206,86,77,54,41,61,26,8],
+    pivotIdx:6
   }
 };
 
 const TYPE_MAP = [
-  {type:'참여자 주도형',      color:'#52C8A0', desc:'검색이 기사를 크게 선행 — 자생적 확산',    ex:'Drowning(멜론1위) · 선재 업고 튀어<br>이상한 변호사 우영우 · Polaroid Love'},
-  {type:'혼합형',             color:'#85C1E9', desc:'검색·기사 비슷한 비율로 동반 성장',         ex:'파친코'},
-  {type:'미디어 주도형',      color:'#E8715A', desc:'기사·마케팅이 검색을 앞섬',                 ex:'Love Attack(발매일) · 외계+인 1부<br>극한직업 · Black Mamba'},
-  {type:'데이터 기사량 부족', color:'#C8A8E9', desc:'주간 최대 기사수 20건 미만 — 분류 불가',   ex:'CHRISTIAN · Drowning(발매일)'},
-  {type:'데이터 수집 기간 부족', color:'#F4C842', desc:'피벗 이후 12주 미만 — 축적 후 재분류', ex:'리센느'},
+  {type:'참여자 주도형',      color:'#52C8A0', desc:'검색이 기사를 크게 선행 — 자생적 확산',    ex:'Drowning(멜론1위) · 선재 업고 튀어 · 이상한 변호사 우영우<br>Polaroid Love · 왕과 사는 남자'},
+  {type:'혼합형',             color:'#85C1E9', desc:'검색·기사 비슷한 비율로 동반 성장',         ex:'파친코 · 폭싹 속았수다'},
+  {type:'미디어 주도형',      color:'#E8715A', desc:'기사·마케팅이 검색을 앞섬',                 ex:'Love Attack · 외계+인 1부 · 극한직업<br>Black Mamba · 기생충 · Dynamite · 사랑은 늘 도망가'},
+  {type:'데이터 기사량 부족', color:'#C8A8E9', desc:'주간 최대 기사수 20건 미만 — 분류 불가',   ex:'CHRISTIAN · Drowning(발매일) · 황가람(나는 반딧불)'},
+  {type:'데이터 수집 기간 부족', color:'#F4C842', desc:'피벗 이후 12주 미만 — 축적 후 재분류', ex:'Love Attack(유튜브 유행)'},
 ];
 
 let chartObj=null;
@@ -758,13 +854,18 @@ function findCase(q){
   if(l.includes('블랙맘바')||l.includes('blackmamba')||l.includes('에스파')||l.includes('aespa')) return DB.블랙맘바;
   if(l.includes('폴라럽')||l.includes('polaroid')||l.includes('엔하이픈')||l.includes('enhypen')) return DB.폴라럽;
   if(l.includes('러브어택')||l.includes('loveattack')||l.includes('love attack')||l.includes('rescene')) return DB.리센느;
+  if(l.includes('왕사남')||l.includes('왕과사는남자')||l.includes('왕과 사는 남자')) return DB.왕사남;
+  if(l.includes('기생충')||l.includes('parasite')) return DB.기생충;
+  if(l.includes('다이너마이트')||l.includes('dynamite')||l.includes('bts')) return DB.다이너마이트;
+  if(l.includes('사랑은늘도망가')||l.includes('사랑은 늘 도망가')||l.includes('임영웅')) return DB.사랑은늘도망가;
+  if(l.includes('황가람')||l.includes('반딧불')||l.includes('나는반딧불')) return DB.황가람;
+  if(l.includes('폭싹')||l.includes('속았수다')) return DB.폭싹;
   return null;
 }
 
 function doSearch(q){
   if(!q||!q.trim()) return;
   ['home','result','notfound'].forEach(id=>document.getElementById(id).style.display='none');
-  document.getElementById('type-section').style.display='none';
   document.getElementById('loading').style.display='block';
   const msgs=['데이터 불러오는 중...','검색량 분석 중...','기사량 비교 중...','TCI 계산 중...'];
   let mi=0;
@@ -841,7 +942,6 @@ function showResult(d){
   currentCase = d;
   const r=document.getElementById('result');
   r.style.display='block';
-  document.getElementById('type-section').style.display='block';
 
   // 날짜 바 기본값 표시
   const defaultPeriod = d.category==='음악'
@@ -900,9 +1000,10 @@ function showResult(d){
   // CSS 변수 실시간 읽기 (모바일/다크 모드 대응)
   const _s = getComputedStyle(document.documentElement);
   const _cv = n => _s.getPropertyValue(n).trim();
-  const cChartBar   = _cv('--chart-bar')   || 'rgba(168,230,207,0.2)';
+  const cChartBar   = _cv('--chart-bar')   || 'rgba(212,83,126,0.22)';
+  const cChartBarBdr= _cv('--chart-bar-border') || 'rgba(212,83,126,0.5)';
   const cChartLine  = _cv('--chart-line')  || '#52C8A0';
-  const cChartFill  = _cv('--chart-fill')  || 'rgba(82,200,160,0.05)';
+  const cChartFill  = _cv('--chart-fill')  || 'rgba(82,200,160,0.08)';
   const cTooltipBg  = _cv('--tooltip-bg')  || 'rgba(15,15,17,0.95)';
   const cTooltipBdr = _cv('--tooltip-border') || 'rgba(255,255,255,0.1)';
   const cGrid       = _cv('--grid-color')  || 'rgba(255,255,255,0.06)';
@@ -910,7 +1011,7 @@ function showResult(d){
   chartObj = new Chart(document.getElementById('trendChart'),{
     type:'bar',
     'data':{labels:d.labels,datasets:[
-      {label:'미디어 기사수',data:d.media,backgroundColor:cChartBar,borderWidth:0,borderRadius:3,yAxisID:'y2',order:2},
+      {label:'미디어 기사수',data:d.media,backgroundColor:cChartBar,borderColor:cChartBarBdr,borderWidth:1.5,borderRadius:3,yAxisID:'y2',order:2},
       {label:'통합 검색량',data:d.combined,type:'line',borderColor:cChartLine,backgroundColor:cChartFill,borderWidth:2,pointRadius:0,tension:0.4,fill:true,yAxisID:'y1',order:0}
     ]},
     'options':{responsive:true,maintainAspectRatio:false,
@@ -927,7 +1028,7 @@ function showResult(d){
       ctx.save();
       // 노란 점선
       ctx.setLineDash([4,4]);
-      ctx.strokeStyle='rgba(244,200,66,0.7)';
+      ctx.strokeStyle='rgba(160,160,165,0.7)';
       ctx.lineWidth=1.5;
       ctx.beginPath();
       ctx.moveTo(x,chartArea.top);
@@ -966,7 +1067,19 @@ function showResult(d){
     .replace(/\s*\([가-힣\s]+가중치\)/g,'');
   document.getElementById('v-body').innerHTML=cleanBody;
 
-
+  // 유형표 + 계산 방법 (중복 방지)
+  const ts=document.getElementById('type-section');
+  ts.innerHTML=`
+    <div class="type-table-card fu d5">
+      <div class="chart-title" style="margin-bottom:14px">TCI 유형 분류표</div>
+      ${TYPE_MAP.map(t=>`
+        <div class="type-row">
+          <div class="type-name" style="color:${t.color}"><span class="type-dot" style="background:${t.color}"></span>${t.type}</div>
+          <div class="type-desc">${t.desc}</div>
+          <div class="type-ex">${t.ex}</div>
+        </div>`).join('')}
+      <div style="margin-top:10px;font-size:11px;color:var(--muted)">* TCI는 트렌드의 옳고 그름을 판단하지 않습니다. 발화 경로를 유형화하는 도구입니다.</div>
+    </div>`;
 
   // 애니메이션
   r.querySelectorAll('.fu').forEach(el=>{el.style.animation='none';el.offsetHeight;el.style.animation='';});
@@ -974,7 +1087,6 @@ function showResult(d){
 
 function goHome(){
   ['result','notfound'].forEach(id=>document.getElementById(id).style.display='none');
-  document.getElementById('type-section').style.display='none';
   document.getElementById('home').style.display='flex';
   if(chartObj){chartObj.destroy();chartObj=null;}
 }
