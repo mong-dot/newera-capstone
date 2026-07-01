@@ -289,6 +289,93 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .theme-toggle .tog-opt.active{
   background:var(--good);color:#fff;
 }
+
+/* ── 모바일 최적화 (max-width: 580px) ─────────────── */
+@media(max-width:580px){
+
+  /* 전체 페이지 */
+  .page{padding:0 16px 60px}
+  #result{padding-top:24px}
+
+  /* 홈 화면 */
+  .home-greeting{font-size:clamp(26px,8vw,36px);line-height:1.2;margin-bottom:8px}
+  .home-sub{font-size:13px;margin-bottom:20px}
+
+  /* 검색창 */
+  .search-box{font-size:14px;padding:12px 44px 12px 14px}
+  .search-btn{width:34px;height:34px;right:8px}
+
+  /* 칩 버튼 */
+  .chips{gap:6px}
+  .chip{font-size:11px;padding:5px 10px;border-radius:16px}
+
+  /* 기간 안내 박스 */
+  .period-notice{padding:12px 14px}
+  .period-notice-title{font-size:11px}
+  .period-guide{flex-direction:column;gap:6px;align-items:flex-start}
+
+  /* 결과 화면 */
+  .result-kw{font-size:clamp(22px,6vw,32px);margin-bottom:6px}
+  .result-meta{font-size:11px;gap:6px;flex-wrap:wrap}
+
+  /* 유형 배지 카드 */
+  .type-badge-card{padding:16px}
+  .tci-score{font-size:52px}
+  .tci-verdict{font-size:14px;margin-bottom:4px}
+  .partial-banner{padding:12px 14px;gap:8px}
+  .partial-icon{font-size:15px}
+
+  /* 날짜 조절 바 */
+  .date-adjust{padding:12px 14px}
+  .date-row{gap:6px}
+  .date-row input[type="date"]{font-size:12px;padding:5px 8px}
+  .date-btn{font-size:12px;padding:6px 12px}
+  .date-adjust-info{font-size:11px}
+
+  /* 그래프 */
+  .chart-card{padding:14px}
+  .chart-title{font-size:13px}
+  .chart-wrap{height:180px}
+  .chart-sub{font-size:10px}
+  .legend{gap:10px}
+  .leg-item{font-size:10px}
+  .leg-dot{width:8px;height:8px}
+
+  /* 지표 그리드 */
+  .metrics-grid{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+  .mc-label{font-size:10px}
+  .mc-val{font-size:22px}
+  .mc-unit{font-size:10px}
+  .mc-bar-wrap{height:3px}
+
+  /* 타임라인 */
+  .tl-item{gap:8px;padding-bottom:10px}
+  .tl-dot{width:8px;height:8px;margin-top:4px}
+  .tl-date{font-size:10px}
+  .tl-text{font-size:12px}
+
+  /* 결론 카드 */
+  .v-title{font-size:13px;margin-bottom:6px}
+  .v-body{font-size:12px;line-height:1.7}
+
+  /* 유형 분류표 */
+  #type-section{padding:0 16px 40px}
+  .type-table-card{padding:16px}
+  .type-row{padding:10px 0}
+  .type-name{font-size:11px}
+  .type-desc{font-size:11px}
+  .type-ex{font-size:10px}
+
+  /* 다크/라이트 토글 */
+  .theme-toggle{top:12px;right:12px;padding:4px 5px}
+  .tog-opt{font-size:10px;padding:3px 8px}
+
+  /* not-found */
+  #notfound{padding:40px 0}
+
+  /* 두 칼럼 → 한 칼럼 */
+  .two-col{grid-template-columns:1fr;gap:10px}
+}
 </style>
 <script>
 (function(){
